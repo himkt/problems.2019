@@ -1,13 +1,14 @@
-# include <cstdio>
+# include <iostream>
+
+using namespace std;
 
 const int MAX_N = 50;
 
 int main(){
   int n, m, k[MAX_N];
-
-  scanf("%d %d", &n, &m);
+  cin >> n >> m;
   for(int i=0; i<n; i++){
-    scanf("%d", &k[i]);
+    cin >> k[i];
   }
 
   bool f = false;
@@ -24,8 +25,16 @@ int main(){
     }
   }
   if (f){
-    printf("Yes\n");
+    cout << "Yes" << endl;
   }else{
-    printf("No\n");
+    cout << "No" << endl;
   }
+  return 0;
 }
+
+
+
+// cinの抽出子>> の連続適用の場合、
+// // コンソール等では空白文字が無視されるので、
+// // そこへ数値を入力するときには、
+// // スペースキー等で区切って連続入力することができる。
