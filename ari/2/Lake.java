@@ -1,13 +1,12 @@
 import java.util.*;
 
-class Main2_2{
+class Lake{
   public static int MAX_N = 100;
   public static int MAX_M = 100;
   static Scanner in = new Scanner(System.in);
   public static int N = in.nextInt();
   public static int M = in.nextInt();
   public static char[][] field = new char[N][M];
-
 
   public static void main(String[] args){
     for(int i=0; i<N; i++){
@@ -28,9 +27,6 @@ class Main2_2{
     }
     System.out.println(res);
   }
-
-
-
 
   public static void dfs(int x, int y){
     field[x][y] = '.';

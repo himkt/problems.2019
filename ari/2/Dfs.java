@@ -1,6 +1,6 @@
 import  java.util.Scanner;
 
-class Main2_1{
+class Dfs{
   static int n, k;
   static int[] a = new int[1000000];
 
