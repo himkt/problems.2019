@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-x = 123456
+print("input number: ")
+x = int(input())
 
 # a tolerancean ( acceptable) error range
 epsilon = 0.01
