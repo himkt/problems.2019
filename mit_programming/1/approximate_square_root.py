@@ -10,7 +10,7 @@ step = epsilon**2
 numGuesses = 0
 ans = 0.0
 while abs(ans**2 - x) >= epsilon and ans**2 <= x:
-  ans += step
+  ans += step ** 3
   numGuesses += 1
   print("numGuesses = {}".format(numGuesses))
 if abs(ans**2 - x) >= epsilon:
