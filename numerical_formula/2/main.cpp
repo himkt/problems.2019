@@ -31,10 +31,19 @@ int multiply1(int n, int a){
   return result;
 }
 
+int mult_acc0(int r, int n, int a){
+  if (n == 1) return r+a;
+  if(odd(n)){
+    return mult_acc0(r+a, half(n), a+a);
+  }else{
+    return mult_acc0(r, half(n), a+a);
+  }
+}
 
 // main function
 int main(){
   cout << multiply0(1100,121) << endl;
   cout << multiply1(1100,121) << endl;
+  cout << mult_acc0(1100,121,23) << endl;
   return 0;
 }
