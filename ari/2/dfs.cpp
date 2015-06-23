@@ -1,36 +1,31 @@
 #include <iostream>
 using namespace std;
 
-const int MAX_N = 20;
-int a[MAX_N]={1,2,4,7};
-int n=4, k=13;
+const int MAX_N = 1000;
+
+int a[MAX_N];
+int n, k;
 
 bool dfs(int i, int sum){
-  if(i == n){
-    return sum == k;
-  }
-
-  if(dfs(i+1, sum)){
-    return true;
-  }
-
-  if(dfs(i+1, sum + a[i])){
-    return true;
-  }
-
+  // when the programm have finished selecting n's elements.
+  // return whether it could make k.
+  if(i==n) return sum==k;
+  // case that it doesn't use a[i]
+  if (dfs(i+1,sum)) return true;
+  // case that it uses a[i]
+  if (dfs(i+1,sum+a[i])) return true;
   return false;
 }
 
-void solve(){
-  if(dfs(0,0)){
-    cout << "Yes" << endl;
-  }
-  else{
-    cout << "No" << endl;
-  }
-}
-
 int main(){
-  solve();
-  return 0;
+  // begin input
+  cin >> n;
+  for(int i=0; i<n; i++){
+    cin >> a[i];
+  }
+  cin >> k;
+  // end input
+  
+  if(dfs(0,0)) cout << "YES" << endl;
+  else cout << "NO" << endl;
 }
