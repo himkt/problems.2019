@@ -10,5 +10,4 @@ def f(N):
     return "-1 -1 -1"
 
 N, M = map(int, raw_input().split())
-
 print f(N)
