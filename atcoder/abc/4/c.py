@@ -2,7 +2,7 @@
 
 c = [1, 2, 3, 4, 5, 6]
 
-N = int(raw_input())
+N = int(raw_input())% 30
 I = list(xrange(N))
 
 for i in I:
