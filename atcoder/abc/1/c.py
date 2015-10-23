@@ -37,46 +37,38 @@ def get_Dir(Deg):
 
 
 def get_W(Dis):
-    if 0.0 <= Dis and Dis <= 0.2:
+    if 0.0 <= Dis and Dis <= 2:
         return 0
-    elif 0.3 <= Dis and Dis <= 1.5:
+    elif 3 <= Dis and Dis <= 15:
         return 1
-    elif 1.6 <= Dis and Dis <= 3.3:
+    elif 16 <= Dis and Dis <= 33:
         return 2
-    elif 3.4 <= Dis and Dis <= 5.4:
+    elif 34 <= Dis and Dis <= 54:
         return 3
-    elif 5.5 <= Dis and Dis <= 7.9:
+    elif 55 <= Dis and Dis <= 79:
         return 4
-    elif 8.0 <= Dis and Dis <= 10.7:
+    elif 80 <= Dis and Dis <= 107:
         return 5
-    elif 10.8 <= Dis and Dis <= 13.8:
+    elif 108 <= Dis and Dis <= 138:
         return 6
-    elif 13.9 <= Dis and Dis <= 17.1:
+    elif 139 <= Dis and Dis <= 171:
         return 7
-    elif 17.2 <= Dis and Dis <= 20.7:
+    elif 172 <= Dis and Dis <= 207:
         return 8
-    elif 20.8 <= Dis and Dis <= 24.4:
+    elif 208 <= Dis and Dis <= 244:
         return 9
-    elif 24.5 <= Dis and Dis <= 28.4:
+    elif 245 <= Dis and Dis <= 284:
         return 10
-    elif 28.5 <= Dis and Dis <= 32.6:
+    elif 285 <= Dis and Dis <= 326:
         return 11
-    elif 32.7 <= Dis:
+    elif 327 <= Dis:
         return 12
 
-
-def round(num):
-    i = num - float(str(num)[:-1])
-    
-    print i
-    if float(str(i * 100)) >= 5:
-        return float(str(num)[:-1]) + 0.1
-    return float(str(num)[:-1])
 
 deg, dis = map(float, raw_input().split())
 
 Deg = deg / 10
-Dis = round(dis / 60)
+Dis = round(dis / 60 * 10)
 
 Dir = (get_Dir(Deg))
 Dis = (get_W(Dis))
