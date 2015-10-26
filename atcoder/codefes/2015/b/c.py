@@ -4,20 +4,22 @@ N, M = map(int, input().split())
 A = list(map(int, input().split()))
 B = list(map(int, input().split()))
 
+A.sort()
+A.reverse()
+B.sort()
+B.reverse()
+
+i = 0
+
 if M > N:
     print("NO")
     exit()
 
 for b in B:
-    flag = False
-    for a in A:
-        if b <= a:
-            A.pop(A.index(a))
-            flag = True
-            break
+    if b <= A[i]:
+        i += 1
 
-    if not flag:
-        print("NO")
-        exit()
-
-print("YES")
+if i == len(B):
+    print("YES")
+else:
+    print("NO")
