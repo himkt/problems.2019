@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 N, a = map(int, input().split())
-k    = int(input())
+k    = int(input()) % N
 B    = list(map(int, input().split()))
 
 now = a
