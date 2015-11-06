@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 def get_Dir(Deg):
     if 11.25 <= Deg and Deg < 33.75:
         return "NNE"
