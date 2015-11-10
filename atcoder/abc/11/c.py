@@ -1,23 +1,11 @@
 # -*- coding: utf-8 -*-
 
-N   = int(input())
-NG1 = int(input())
-NG2 = int(input())
-NG3 = int(input())
-
-# とりあえず3を引く
-# ダメだったら2を引く
-# ダメだったら1を引く
-# 繰り返す
-
 
 def subtract(N):
-    count = 0
-
-    while count < 100:
-        if N-3 == NG1 or N-3 == NG2 or N-3 == NG3:
-            if N-2 == NG1 or N-2 == NG2 or N-2 == NG3:
-                if N-1 == NG1 or N-1 == NG2 or N-1 == NG3:
+    for i in range(100):
+        if N-3 in NG:
+            if N-2 in NG:
+                if N-1 in NG:
                     return False
                 else:
                     N -= 1
@@ -25,14 +13,12 @@ def subtract(N):
                 N -= 2
         else:
             N -= 3
-        count += 1
+    return N <= 0
 
-    if N > 0:
-        return False
-    else:
-        return True
 
-if N == NG1 or N == NG2 or N == NG3:
+N = int(input())
+NG = [int(input()) for i in range(3)]
+if N in NG:
     print("NO")
 else:
     if subtract(N):
