@@ -44,13 +44,11 @@ for i in range(len(fact_list)):
                 results.append((j, i))
 
 if dif == 36:
-
     print("4 x 9")
     print("6 x 6")
     print("9 x 4")
 
 else:
-
     if dif < 10:
         print("1 x %s" % dif)
 
