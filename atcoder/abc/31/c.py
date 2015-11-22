@@ -1,44 +1,26 @@
 N = int(input())
-a = list(map(int, input().split()))
-takahashi = list()
-aoki      = list()
+A = list(map(int, input().split()))
+
+# init
+ans = -1000000000
 
 for i in range(N):
-
-    aa_list = list()
-
+    score = []
     for j in range(N):
         if i == j:
             continue
-        elif i < j:
-            aa_list.append(a[i:j+1])
+        if i > j:
+            subA = A[j:i+1]
         else:
-            aa_list.append(a[j:i+1])
+            subA = A[i:j+1]
 
-    aa_cost = [sum(aa[::2]) for aa in aa_list]
-    jj = aa_cost.index(max(aa_cost))
+        # aoki select left one
+        score.append((sum(subA[1::2]), -j, sum(subA[::2])))
 
-    if i == jj:
-        continue
-    elif i < jj:
-        takahashi.append(sum(a[i:jj+1][::2]))
-        aoki.append(sum(a[i:jj+1][1::2]))
-    elif jj < i:
-        takahashi.append(sum(a[jj:i+1][::2]))
-        aoki.append(sum(a[jj:i+1][1::2]))
+    # maximize aoki score
+    _, _, ans_i = max(score)
 
+    # update answer
+    ans = max(ans, ans_i)
 
-# if aoki.count(max(aoki)) == 1:
-if aoki.count(max(aoki)) != len(aoki):
-    # print(takahashi[aoki.index(max(aoki))])
-    print(max(aoki))
-else:
-    aokis = max(aoki)
-    i = 0
-    ans = list()
-
-    for aoki_a in aoki:
-        if aokis == aoki_a:
-            ans.append(takahashi[i])
-        i += 1
-    print(max(ans))
+print(ans)
