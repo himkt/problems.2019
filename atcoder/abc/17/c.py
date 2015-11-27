@@ -10,9 +10,9 @@ for _ in range(N):
     im[elems[1]] -= elems[2]
     ans += elems[2]
 
-
 for i in range(len(im)):
     if i+1 < len(im):
         im[i+1] += im[i]
 
+# 1番最小の区間を消せば、重複がなくなる
 print(ans - min(im[:-1]))
