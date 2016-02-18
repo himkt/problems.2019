@@ -2,30 +2,26 @@
 
 
 def is_prime(n):
-    for i in xrange(2, N):
+    for i in range(2, N):
         if N % i == 0:
             return False
     return True
 
-N = int(raw_input())
+N = int(input())
 
 if is_prime(N):
     if N == 1:
-        print "Not Prime"
+        print("Not Prime")
     else:
-        print "Prime"
+        print("Prime")
 else:
-    _sum = 0
-    for char in str(N):
-        _sum += int(char)
+    tail = list(str(N))[-1]
 
     if (
-            int(char) == 1 or
-            int(char) == 3 or
-            int(char) == 7 or
-            int(char) == 9 and
-            _sum % 3 != 0
+            int(tail) == 5 or
+            int(tail) % 2 == 0 or
+            sum(list(map(int, str(N)))) % 3 == 0
             ):
-        print "Prime"
+        print("Not Prime")
     else:
-        print "Not Prime"
+        print("Prime")
