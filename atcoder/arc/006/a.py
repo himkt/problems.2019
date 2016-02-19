@@ -7,19 +7,18 @@ disp_values = {
         3: "5",
         }
 
-E = list(map(int, input().split()))
+E = set(map(int, input().split()))
 B = int(input())
-L = list(map(int, input().split()))
+L = set(map(int, input().split()))
 
-eq = [e == l for e, l in zip(E, L)]
-eq_count = eq.count(True)
+eq_count = len(E & L)
 
 if eq_count < 3:
     print(0)
 elif eq_count != 5:
     print(disp_values[eq_count])
 else:
-    if E[eq.index(False)] == B:
+    if B in L:
         print(2)
     else:
         print(3)
