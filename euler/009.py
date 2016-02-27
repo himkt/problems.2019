@@ -9,5 +9,6 @@ def get_pythagorean_triplet(n):
 def solve(n):
     return reduce(lambda x, y: x * y, get_pythagorean_triplet(n))
 
+
 if __name__ == '__main__':
     print(solve(1000))
