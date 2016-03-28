@@ -2,12 +2,25 @@
 # @author = himkt
 # @create = 2015/08/15
 
-def normalize_score(P,Q):
-    return 0
+from statistics import mean
 
-N,A,B = map(lambda item: int(item), raw_input().split())
+
+def solve(N, A, B, S):
+    max_s = max(S)
+    min_s = min(S)
+    p = B / (max_s - min_s)
+    q = A - p * mean(S)
+    return "%s %s" % (p, q)
+
+
+N, A, B = map(int, input().split())
 S = []
 
-for i in xrange(N):
-    S.append(int(raw_input()))
+for i in range(N):
+    S.append(int(input()))
 
+
+try:
+    print(solve(N, A, B, S))
+except:
+    print(-1)
