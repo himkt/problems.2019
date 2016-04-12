@@ -20,4 +20,13 @@ for s in S.replace('?', ''):
 if T == 1:
     print(sum(abs(p) for p in state) + num_unknown)
 elif T == 2:
-    print(sum(abs(p) for p in state) - num_unknown)
+    ans = sum(abs(p) for p in state) - num_unknown
+
+    if ans < 0:
+        if ans % 2 == 0:
+            print(0)
+        else:
+            print(1)
+
+    else:
+        print(ans)
