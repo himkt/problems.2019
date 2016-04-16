@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
+N, M = map(int, input().split())
+a = list(int(input()) for _ in range(N))
 
-N, M = map(lambda x: int(x), raw_input().split(" "))
+done = list()
 
-call = []
+for a_i in reversed(a):
+    if a_i not in done:
+        print(a_i)
+        done.append(a_i)
 
-for i in xrange(M):
-    call.append(int(raw_input()))
-
-call.reverse()
-
-for elem in call:
-
-    print elem
+for b_i in sorted(set(map(lambda x: x+1, range(N))) - set(a)):
+    print(b_i)
