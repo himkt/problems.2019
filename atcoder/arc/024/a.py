@@ -1,4 +1,13 @@
-D = list(map(int, input().split()))
-J = list(map(int, input().split()))
 
-print(sum(max(D[i], J[i]) for i in range(len(D))))
+_, _ = map(int, input().split())
+L = list(map(int, input().split()))
+R = list(map(int, input().split()))
+
+ans = 0
+
+for l in L:
+    if l in R:
+        R.remove(l)
+        ans += 1
+
+print(ans)
