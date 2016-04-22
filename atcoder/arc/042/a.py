@@ -1,12 +1,13 @@
 N, M = map(int, input().split())
-a = sorted(list(int(input()) for _ in range(N)), reverse=1)
 
-prv = 0
+thread = list(N-i for i in range(N))
+opened = list(False for _ in range(N+1))
 
-for a_i in reversed(a):
-    if prv != a_i:
-        print(a_i)
-        prv = a_i
+for _ in range(M):
+    thread.append(int(input()))
 
-for b_i in sorted(set(map(lambda x: x+1, range(N))) - set(a)):
-    print(b_i)
+
+for t in reversed(thread):
+    if not opened[t]:
+        print(t)
+        opened[t] = True
