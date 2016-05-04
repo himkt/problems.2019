@@ -20,26 +20,23 @@ for k in range(K):
 # for each stage
 for d in range(D):
 
-    print(S)
-    print(T)
-
-
     # for each people
     for k in range(K):
-
         if (S[k] == T[k]):
             continue
 
-        if (L[d] <= T[k] and T[k] <= R[d]):
-            S[k] = T[k]
-            ans[k] += 1
+        ans[k] += 1
 
-        elif (abs(T[k] - L[d]) < abs(T[k] - R[d])):
-            S[k] = L[d]
-            ans[k] += 1
+        if L[d] <= S[k] and S[k] <= R[d]:
 
-        elif (abs(T[k] - L[d]) > abs(T[k] - R[d])):
-            S[k] = R[d]
-            ans[k] += 1
+            if (L[d] <= T[k] and T[k] <= R[d]):
+                S[k] = T[k]
 
-print(ans)
+            elif (abs(T[k] - L[d]) < abs(T[k] - R[d])):
+                S[k] = L[d]
+
+            elif (abs(T[k] - L[d]) > abs(T[k] - R[d])):
+                S[k] = R[d]
+
+for a in ans:
+    print(a)
