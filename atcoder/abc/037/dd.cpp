@@ -30,26 +30,8 @@ int dx[4] = {1, 0, -1, 0};
 int dy[4] = {0, 1, 0, -1};
 
 int a[1000][1000];
+int dp[1000][1000];
 int ans = 0;
-
-void dfs(int sx, int sy, int sum){
-
-  rep(i, 4) {
-    int nx = sx + dx[i], ny = sy + dy[i];
-
-    if (0 <= nx && nx < h && 0 <= ny && ny < w){
-      sum++;
-
-      if (a[sx][sy] < a[nx][ny]) {
-        dfs(nx, ny, sum);
-      }
-    }
-  }
-
-  if (sum != 0) {
-    ans++;
-  }
-}
 
 
 int main() {
@@ -61,15 +43,28 @@ int main() {
   rep(i, h) {
     rep(j, w) {
       cin >> a[i][j];
+      dp[i][j] = 1;
     }
   }
 
-  rep(i, h) {
-    rep(j, w) {
-      int sx = i, sy = j;
-      dfs(sx, sy, 0);
+  rep (x, h) {
+    rep (y, w) {
+      rep (i, 4) {
+        int nx = x + dx[i], ny = y + dy[i];
+        if (a[x][y] < a[nx][ny]){
+          dp[nx][ny] += dp[x][y];
+        }
+      }
     }
   }
 
-  cout << (ans % (1000000000 + 7)) << endl;
+  int ans = 0;
+
+  rep (i, h) {
+    rep (j, w) {
+      ans += dp[i][j];
+    }
+  }
+
+  cout << ans << endl;
 }
