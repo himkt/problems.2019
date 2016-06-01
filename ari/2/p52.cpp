@@ -21,21 +21,18 @@ using namespace std;
  
 int n, W, res;
 int w[100], v[100];
-
+int dp[101][101];
 
 int rec(int i, int j) {
 
-  if (i == n) {
-    res = 0;
-  }
-  else if (j < w[i]) {
-    res = rec(i + 1, j);
-  }
-  else {
-    res = max(rec(i + 1, j), rec(i + 1, j - w[i]) + v[i]);
+  if (dp[i][j] != 0) {
+    return dp[i][j];
   }
 
-  return res;
+  if (i == n) res = 0;
+  else if (j < w[i]) res = rec(i+1, j);
+  else res = max(rec(i+1, j), rec(i+1, j-w[i]) + v[i]); 
+  return dp[i][j] = res;
 }
 
 
@@ -48,6 +45,12 @@ int main() {
     cin >> w[i] >> v[i];
   }
   cin >> W;
+
+  rep (i, 101) {
+    rep (j, 101) {
+      dp[i][j] = 0;
+    }
+  }
 
   cout << rec(0, W) << endl;
 }
