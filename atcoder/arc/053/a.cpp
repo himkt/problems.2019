@@ -15,10 +15,10 @@
 # include <vector>
 
 using namespace std;
- 
+
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define irep(i, n) for (int i = int(n) - 1; i >= 0; i--)
- 
+
 int h, w;
 int row, column;
 
