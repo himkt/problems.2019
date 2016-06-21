@@ -13,67 +13,35 @@
 # include <stack>
 # include <string>
 # include <vector>
+# include <iomanip>
 
 # define rep(i, n) for (int i = 0; i < (int)(n); i++)
 # define irep(i, n) for (int i = int(n) - 1; i >= 0; i--)
-
-// N is size of row
-// M is size of column
-// vector< vector<int> > Matrix(N, vector<int>(M, -1));
+# define FOR(i, m, n) for (int i = int(m); i < (int)(n); i++)
 
 using namespace std;
 const int INF = 1e8;
-
-int factorial(int i) {
-  if (i < 1) return 1;
-  return i * factorial(i-1);
-}
-
-int permutation(int k, int c) {
-  return factorial(k) / factorial(k - c);
-}
-
-int combination(int k, int c) {
-  return factorial(k) / (factorial(c) * factorial(k - c));
-}
-
-int N;
-vector<int> A;
-int a;
-long long ans = 0;
 
 int main() {
   std::cin.tie(0);
   std::ios::sync_with_stdio(false);
 
-  cin >> N;
+  int n;
+  cin >> n;
 
-  rep (i, N) {
-    cin >> a;
-    A.push_back(a);
+  vector<int> a(n);
+
+  rep (i, n) {
+    cin >> a[i];
   }
 
-  ans = 0;
+  int r = 0;
+  long long ans = 0;
 
-  int length = 1;
-  vector<int> result;
-
-  rep (i, N) {
-    if (A[i+1] > A[i]) {
-      length++;
-    }
-    else {
-      result.push_back(length);
-      length = 1;
-    }
-  }
-
-  if (length != 1) {
-    result.push_back(length);
-  }
-
-  rep (i, result.size()) {
-    ans += (result[i] * (result[i] + 1)) / 2;
+  rep (l, n) {
+    if ( l > r ) r = l;
+    while (r < n-1 && a[r] < a[r+1]) ++r;
+    ans += r-l+1;
   }
 
   cout << ans << endl;
