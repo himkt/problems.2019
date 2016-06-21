@@ -13,95 +13,74 @@
 # include <stack>
 # include <string>
 # include <vector>
+# include <iomanip>
 
 # define rep(i, n) for (int i = 0; i < (int)(n); i++)
 # define irep(i, n) for (int i = int(n) - 1; i >= 0; i--)
-
-// N is size of row
-// M is size of column
-// vector< vector<int> > Matrix(N, vector<int>(M, -1));
+# define FOR(i, m, n) for (int i = int(m); i < (int)(n); i++)
 
 using namespace std;
 const int INF = 1e8;
 
-int factorial(int i) {
-  if (i < 1) return 1;
-  return i * factorial(i-1);
-}
-
-int permutation(int k, int c) {
-  return factorial(k) / factorial(k - c);
-}
-
-int combination(int k, int c) {
-  return factorial(k) / (factorial(c) * factorial(k - c));
-}
-
-
-int H, W;
-char board[100][100];
-char board2[100][100];
-char board3[100][100];
-string S;
-bool ansable = true;
+typedef vector<string> G;
 
 int main() {
-  std::cin.tie(0);
-  std::ios::sync_with_stdio(false);
+  int h, w;
+  cin >> h >> w;
+  G s(h);
 
-  cin >> H >> W;
-
-  rep (i, H) {
-    cin >> S;
-    rep (j, W) {
-      board[i][j] = S[j];
-      board2[i][j] = '.';
-      board3[i][j] = '.';
-    }
+  rep (i, h) {
+    cin >> s[i];
   }
 
-  rep (i, H) {
-    rep (j, W) {
-      if (board[i][j] == '#' && board[i][j+1] != '.' && board[i][j-1] != '.' && board[i+1][j] != '.' && board[i-1][j] != '.'\
-          && board[i-1][j-1] != '.' && board[i-1][j+1] != '.' && board[i+1][j-1] != '.' && board[i+1][j+1] != '.' ) {
-        board2[i][j] = '#';
+  G t(h, string(w, '#'));
+
+  rep (i, h) {
+    rep (j, w) {
+      int cnt = 0;
+      FOR(di, -1, 2) {
+        FOR(dj, -1, 2) {
+          int ni = i+di;
+          int nj = j+dj;
+          // 短絡評価をするのでs[ni][nj]はindex errorしない
+          if (ni < 0 || nj < 0 || ni>=h || nj>=w || s[ni][nj] == '#') {
+            cnt++;
+          }
+        }
+      }
+      if (cnt != 9) {
+        t[i][j] = '.';
       }
     }
   }
 
-  rep (i, H) {
-    rep (j, W) {
-      if (board2[i][j] == '#') {
-        board3[i-1][j-1] = '#';
-        board3[i-1][j] = '#';
-        board3[i-1][j+1] = '#';
-        board3[i][j-1] = '#';
-        board3[i][j] = '#';
-        board3[i][j+1] = '#';
-        board3[i+1][j-1] = '#';
-        board3[i+1][j] = '#';
-        board3[i+1][j+1] = '#';
+  G u = t;
+
+  rep (i, h) {
+    rep (j, w) {
+      int cnt = 0;
+      FOR(di, -1, 2) {
+        FOR(dj, -1, 2) {
+          int ni = i+di;
+          int nj = j+dj;
+          // 短絡評価をするのでs[ni][nj]はindex errorしない
+          if (ni < 0 || nj < 0 || ni>=h || nj>=w) continue;
+          if (t[ni][nj] == '#') cnt++;
+        }
+      }
+      if (cnt >= 1) {
+        u[i][j] = '#';
       }
     }
   }
 
-  rep (i, H) {
-    rep (j, W) {
-      if (board[i][j] != board3[i][j]) {
-        cout << "impossible" << endl;
-        return 0;
-      }
+  if (s == u) {
+    cout << "possible" << endl;
+    rep (i, h) {
+      cout << t[i] << endl;
     }
   }
-
-  cout << "possible" << endl;
-
-  rep (i, H) {
-    rep (j, W) {
-      cout << board2[i][j];
-    }
-    cout << endl;
+  else {
+    cout << "impossible" << endl;
   }
-
-  return 0;
 }
