@@ -83,7 +83,7 @@ void update() {
   rep (column, 5) {
     vector<int> nonzeros;
 
-    for (int i = 10; i > 0; i--) {
+    for (int i = 10; i >= 0; i--) {
       if (board[i][column] != -1) nonzeros.push_back(board[i][column]);
     }
 
@@ -112,6 +112,7 @@ void solve(int n) {
   rep (t, 18) {
     score = check(score); // ok
     update();
+
   }
   cout << score << endl;
 }

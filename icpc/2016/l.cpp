@@ -25,24 +25,13 @@ typedef pair<int, int> P;
 
 const int INF = 1001001001;
 
-struct Node {
-  int index;
-  char label;
-
-  Node(int i, char c) {
-    index = i;
-    label = c;
-  }
-};
-
 int main() {
-  int n, m, k;
-  cin >> n >> m >> k;
+  int n;
+  string input;
+  cin >> n;
 
-  rep (i, n) {
-    char k;
-    cin >> k;
-
-    Node(i, k);
+  rep (i, n+1) {
+    getline(cin, input);
+    if (input.size() != 0) cout << input.size() << endl;
   }
 }

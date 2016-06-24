@@ -25,24 +25,14 @@ typedef pair<int, int> P;
 
 const int INF = 1001001001;
 
-struct Node {
-  int index;
-  char label;
-
-  Node(int i, char c) {
-    index = i;
-    label = c;
-  }
-};
+void solve(int a, int b) {
+  double ans = double(a) / b;
+  cout << fixed << setprecision(20) << ans << endl;
+}
 
 int main() {
-  int n, m, k;
-  cin >> n >> m >> k;
-
-  rep (i, n) {
-    char k;
-    cin >> k;
-
-    Node(i, k);
+  int a, b;
+  while (cin >> a >> b) {
+    if (b != 0) solve(a, b);
   }
 }

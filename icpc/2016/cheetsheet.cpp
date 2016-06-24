@@ -20,7 +20,16 @@
 # define FOR(i, m, n) for (int i = int(m); i < (int)(n); i++)
 
 using namespace std;
-const int INF = 1e8;
+typedef long long ll;
+typedef pair<int, int> P;
+
+const int INF = 1001001001;
+
+int main() {
+}
+
+
+// Segment-tree
 
 struct segtree {
   int n;
@@ -53,28 +62,30 @@ struct segtree {
   }
 };
 
-int main() {
+
+// Union-find
+
+struct UF {
   int n;
-  cin >> n;
-  vector<pair<int, int>> a(n);
+  vector<int> d;
+  UF() {}
+  UF(int n): n(n), d(n, -1) {}
 
-  rep (i, n) {
-    // firstが同じときはsecondの大きい順番でソート
-    scanf("%d%d", &a[i].first, &a[i].second);
-    a[i].second *= -1;
+  int root(int v) {
+    if (d[v] < 0) return v;
+    return d[v] = root(d[v]);
   }
 
-  sort(a.begin(), a.end());
+  bool unite(int x, int y) {
+    x = root(x); y = root(y);
+    if (x == y) return false; // グラスカル法
+    if (size(x) < size(y)) swap(x, y);
 
-  segtree t(100005);
-  int ans = 0;
+    d[x] += d[y];
+    d[y] = x;
 
-  rep (i, n) {
-    int h = -a[i].second;
-    int now = t.getmax(0, h)+1;
-    ans = max(ans, now);
-    t.add(h, now);
+    return true;
   }
 
-  cout << ans << endl;
-}
+  int size(int v) { return -d[root(v)]; }
+};
