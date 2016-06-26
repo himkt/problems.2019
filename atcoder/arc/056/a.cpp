@@ -23,17 +23,17 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> P;
 
-const int INF = 1001001001;
+ll a, b, k, l, ans, num;
 
-int a, b, k, l, ans, num;
+ll min(ll num1, ll num2) {
+  return num1 < num2 ? num1 : num2;
+}
 
 int main() {
   cin >> a >> b >> k >> l;
 
-  int num1 = k % l;
-  int num2 = (k - num1) / l;
-  int ans = b * num2;
-  ans += min(a * num1, b);
+  ll ans = (k / l) * b + (k % l) * a;
+  ans = min(ans, ((k + l-1) / l) * b);
 
   cout << ans << endl;
 }
