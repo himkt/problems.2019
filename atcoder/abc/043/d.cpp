@@ -28,15 +28,14 @@ void solve(string s) {
       cout << i+1 << " " << i+2 << endl;
       return ;
     }
-  }
 
-  rep (i, s.size() - 2) {
-    if (s[i] == s[i+2]) {
-      cout << i+1 << " " << i+3 << endl;
-      return ;
+    if (i < s.size() - 2) {
+      if (s[i] == s[i+2]) {
+        cout << i+1 << " " << i+3 << endl;
+        return ;
+      }
     }
   }
-
   cout << "-1 -1" << endl;
 }
 
