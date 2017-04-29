@@ -34,45 +34,33 @@ void show_all(T t) {
 int main() {
   string sentence;
 
-  while (getline(cin, sentence) && sentence != ".") {
-    cout << sentence << endl;
+  while (getline(cin, sentence)) {
+    if (sentence == ".") {
+      break;
+    }
     int position = 0;
 
-    int state = 1;
-    int ans = 0;
-    while (position >= 0 && sentence.size() > position) {
-    // cout << sentence << endl;
+    stack<char> a;
+    a.push('B');
 
-      if (state == 1 && sentence[position] == ')') {
-        sentence[position] = '@';
-        state = -1;
-      } else if (state == -1 && sentence[position] == '(') {
-        sentence[position] = '@';
-        state = 1;
+    rep (i, sentence.size()) {
+      if (sentence[i] == '(') a.push(sentence[i]);
+      if (sentence[i] == '[') a.push(sentence[i]);
+
+      if (sentence[i] == ')') {
+        if ('(' == a.top()) a.pop();
+        else {
+          a.push('B');
+        }
       }
-
-      position += state;
-    }
-    ans += state;
-
-    position = 0;
-    state = 1;
-    while (position >= 0 && sentence.size() > position) {
-    // cout << sentence << endl;
-
-      if (state == 1 && sentence[position] == ']') {
-        sentence[position] = '@';
-        state = -1;
-      } else if (state == -1 && sentence[position] == '[') {
-        sentence[position] = '@';
-        state = 1;
+      if (sentence[i] == ']') {
+        if ('[' == a.top()) a.pop();
+        else {
+          a.push('B');
+        }
       }
-
-      position += state;
     }
-    ans += state;
-    // cout << sentence << endl;
 
-    cout << ans << endl;
+    cout << (a.size() == 1 ? "yes" : "no") << endl;
   }
 }
