@@ -20,61 +20,59 @@
 # define FOR(i, m, n) for (int i = int(m); i < (int)(n); i++)
 
 using namespace std;
-
-int ans;
-int next_i[] = {0, 1, 0, -1};
-int next_j[] = {1, 0, -1, 0};
+int w, h, ans;
 
 template <typename T>
-void show_all (T t) {
+void show_all(T t) {
   rep (i, t.size()) {
     rep (j, t[0].size()) {
-      cout << t[i][j] << ' ';
+      cout << setfill('0') << setw(5) << t[i][j] << ' ';
     }
     cout << endl;
   }
+  cout << endl;
 }
 
 
-void dfs (int i, int j, vector<vector<char>> &maze) {
-  rep (k, 4) {
+void dfs(vector<vector<int>> &c, int i, int j) {
+  vector<int> next_i = {0, 1, 1, 1, 0, -1, -1, -1};
+  vector<int> next_j = {1, 1, 0, -1, -1, -1, 0, 1};
+
+  rep (k, 8) {
     int ii = i + next_i[k];
     int jj = j + next_j[k];
 
-    if (0 <= ii && 0 <= jj && maze.size() > ii && maze[0].size() > jj && maze[ii][jj] == '.') {
-      maze[ii][jj] = '#';
-      ans++;
-      dfs(ii, jj, maze);
+    if (0 <= ii && 0 <= jj && ii < c.size() && jj < c[0].size() && c[ii][jj] == 1) {
+      c[ii][jj] = 1000;
+      dfs(c, ii, jj);
     }
   }
 }
 
+
 int main() {
-  int w, h;
-  int init_i, init_j;
 
   while (cin >> w >> h && w && h) {
-    vector<vector<char>> maze;
-    ans = 1;
+    vector<vector<int>> c;
+    ans = 0;
+
+    rep (i, h) c.push_back(vector<int>(w));
+    rep (i, h) {
+      rep (j, w) {
+        cin >> c[i][j];
+      }
+    }
 
     rep (i, h) {
-      vector<char> row(w);
-      maze.push_back(row);
-
       rep (j, w) {
-        cin >> maze[i][j];
-        if (maze[i][j] == '@') {
-          init_i = i;
-          init_j = j;
+        if (c[i][j] == 1) {
+          ans++;
+          c[i][j] = 1000;
+          dfs(c, i, j);
         }
       }
     }
 
-    // cout << "before" << endl;
-    // show_all(maze);
-    dfs(init_i, init_j, maze);
-    // cout << "after" << endl;
-    // show_all(maze);
     cout << ans << endl;
   }
 }
