@@ -1,3 +1,3 @@
 
 clean:
-	rm */*/*/*.out
+	find . -name "a.out" -delete
