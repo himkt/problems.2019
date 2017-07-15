@@ -1,87 +1,98 @@
 # include <bits/stdc++.h>
-
 # define rep(i, n) for (int i = 0; i < (int)(n); i++)
-
 using namespace std;
 
-namespace utils{
-  template <typename T> void print(vector<vector<T>> mat) {
-    rep (i, mat.size()) {
-      rep (j, mat[0].size()) cout << mat[i][j] << ' ';
-      cout << endl;
+struct edge{
+  int from, to;
+  long long cost;
+};
+
+const long long INF = 1e15;
+
+bool solve(int s, int n, int m, vector<long long> d, vector<edge> es) {
+  for (int i=0; i<n; i++) d[i] = INF;
+  d[s] = 0;
+
+  int cnt = 0;
+
+  while (true) {
+    bool update = false;
+    for (int i=0; i<m; i++) {
+      edge e = es[i];
+      if (d[e.from] != INF && d[e.to] > d[e.from] + e.cost) {
+        d[e.to] = d[e.from] + e.cost;
+        update = true;
+      }
     }
-  }
+    cnt++;
 
-  template <typename T> void print(vector<T> v) {
-    rep (i, v.size()) cout << v[i] << ' ';
-    cout << endl;
-  }
-
-  template <typename T> pair<T, T> shape(vector<vector<T>> mat) {
-    int d1, d2;
-
-    d1 = mat.size();
-    if (d1 > 0) d2 = mat[0].size();
-    else int d2 = 0;
-    cout << "(" << d1 << ", " << d2 << ")" << endl;
-    return make_pair(0, 0);
-  }
-
-  template <typename T> vector<vector<T>> empty(int n, int m) {
-    vector<vector<T>> mat(n, vector<T>(m));
-    return mat;
+    if (!update) return true;
+    if (cnt > n) return false;
   }
 }
 
-bool dfs(vector<vector<long long>> &dag, vector<bool> &reached, int i) {
-  if (reached[i]) return true;
-  reached[i] = true;
+void dfs(vector<vector<int>> &adj, vector<bool> &valid, int m) {
+  stack<int> s;
 
-  rep (j, dag[0].size()) {
-    if (i!=j && dag[i][j] != 0) {
-      return dfs(dag, reached, j);
+  s.push(m);
+  valid[m] = true;
+
+  vector<bool> used(adj.size());
+
+  while(!s.empty()) {
+    int k = s.top(); s.pop();
+
+    rep (j, adj.size()) {
+      if (!valid[j] && adj[k][j]) {
+        valid[j] = true;
+        s.push(j);
+      }
     }
   }
-
-  return false;
 }
-
-long long search(vector<vector<long long>> &dag, vector<bool> &reached, int i, long long ans) {
-  if (i == dag.size()-1) return ans;
-  reached[i] = true;
-
-  rep (j, dag[0].size()) {
-    if (dag[i][j] != 0) {
-      return search(dag, reached, j, ans+dag[i][j]);
-    }
-  }
-
-  return 0;
-}
-
 
 int main() {
-  int n, m, a, b, c;
+  int n, m;
   cin >> n >> m;
-  vector<vector<long long>> dag = utils::empty<long long>(n, n);
+
+  vector<edge> es(m);
+
+  vector<vector<int>> adj(n);
+  rep (i, n) adj[i] = vector<int>(n);
+
+  vector<long long> d(n);
+  vector<bool> valid(n);
+
+  int a, b;
+  long long c;
   rep (i, m) {
     cin >> a >> b >> c;
-    dag[--a][--b] = c;
+    a--; b--;
+
+    es[i].from = a;
+    es[i].to = b;
+    es[i].cost = -c;
+
+    adj[b][a] = 1;
   }
 
-  long long ans = 0;
-  vector<bool> reached(n);
-  fill(reached.begin(), reached.end(), false);
+  dfs(adj, valid, m-1);
+  rep (i, valid.size()) {
+    if (valid[i]) cout << i << endl;
+  }
 
-  bool cyclic = dfs(dag, reached, 0);
+  cout << 'a' << endl;
 
-  if (cyclic) {
-    cout << "inf" << endl;
+  if (solve(0, n, m, d, es)) {
+    cout << -d[n-1] << endl;
+    // cout << d[0] + d[2] << endl;
+    // cout << typeid(1).name() << endl;
+    // cout << typeid(d[0]).name() << endl;
+    // rep (i, n) {
+    //   cout << d[i] << endl;
+    // }
   }
   else {
-    fill(reached.begin(), reached.end(), false);
-    ans = search(dag, reached, 0, ans);
-    cout << ans << endl;
+    cout << "inf" << endl;
   }
-
 }
