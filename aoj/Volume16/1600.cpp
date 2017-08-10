@@ -11,9 +11,6 @@ int main() {
     p.resize(n);
     rep (i, n) cin >> p[i];
 
-    sort(p.begin(), p.end());
-    reverse(p.begin(), p.end());
-
     int n_passed = 0;
     int max_gap = 0;
 
