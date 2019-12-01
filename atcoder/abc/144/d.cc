@@ -1,11 +1,6 @@
 # include <cmath>
 # include <iostream>
-# include <queue>
-# include <set>
-# include <stack>
-# include <string>
-# include <vector>
-# include <cmath>
+# include <iomanip>
 
 
 using namespace std;
@@ -26,7 +21,7 @@ int main() {
     }
 
     double ans = rad/(2*acos(-1))*360;
-    printf("%.10f\n", ans);
+    cout << setprecision(10) << ans << endl;
     return 0;
 }
 
