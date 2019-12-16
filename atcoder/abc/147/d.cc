@@ -4,7 +4,7 @@
 
 
 using namespace std;
-const long long DIV = 10e8 + 7;
+const long long DIV = 1e9 + 7;
 
 
 int main() {
@@ -18,27 +18,30 @@ int main() {
         return 0;
     }
 
-    long long k = (int)log2(max_item) + 1;
-
-    vector<vector<long long>> ct(k);
-    for (int i=0; i<k; i++) ct[i] = vector<long long>(2, 0);
+    long long k = log2(max_item) + 1;
+    vector<long long> ct(k, 0);
 
     for (long long t=0; t<n; t++) {
-        long long a_t = a[t];
-
         for (long long i=k; i>0; i--) {
-            if (1 & a_t>>(i-1)) {
-                ct[i-1][1]++;
-            }
-            else {
-                ct[i-1][0]++;
+            if (1 & a[t]>>(i-1)) {
+                ct[i-1]++;
             }
         }
     }
 
     long long ans = 0;
     for (long long t=k-1; t>=0; t--) {
-        ans += ((long long)pow(2, t) * ct[t][0] * ct[t][1] % DIV);
+        long long _ans = 1;
+
+        for (int i=0; i<t; i++) {
+            _ans *= 2;
+            _ans %= DIV;
+        }
+
+        _ans *= ct[t] * (n - ct[t]);
+        _ans %= DIV;
+
+        ans += _ans;
     }
 
     ans %= DIV;
