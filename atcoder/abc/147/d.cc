@@ -29,19 +29,16 @@ int main() {
         }
     }
 
+
     long long ans = 0;
-    for (long long t=k-1; t>=0; t--) {
-        long long _ans = 1;
+    long long coe = 1;
 
-        for (int i=0; i<t; i++) {
-            _ans *= 2;
-            _ans %= DIV;
-        }
-
-        _ans *= ct[t] * (n - ct[t]);
-        _ans %= DIV;
-
-        ans += _ans;
+    for (int i=0; i<k; i++) {
+        long long _ans = (ct[i] * (n - ct[i])) % DIV;
+        ans += (coe * _ans) % DIV;
+        ans %= DIV;
+        coe *= 2;
+        coe %= DIV;
     }
 
     ans %= DIV;
