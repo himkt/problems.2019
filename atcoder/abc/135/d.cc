@@ -1,45 +1,47 @@
 # include <iostream>
-# include <vector>
 # include <string>
+# include <vector>
 
 
 using namespace std;
 
 
-const int N = 13;
 const int MOD = 1e9+7;
-const int REM = 5;
 
 
 int main() {
     string s; cin >> s;
+
     int n_digits = s.size();
 
-    vector<vector<long>> dp(n_digits+1, vector<long>(13, 0));
-    dp[0][0] = 1;
+    vector<vector<long long>> dp(n_digits+1, vector<long long>(13, 0));
+    dp[0][0] = 1;  // 0 (mod 13) \equiv 0
 
-    int c;
+    long long digit = 1;
     for (int i=0; i<n_digits; i++) {
-        c = (s[i] == '?') ? -1 : s[i]-'0';
 
-        if (c == -1) {
-            for (int j=0; j<10; j++) {
-                for (int k=0; k<13; k++) {
-                    dp[i+1][(k*10+j)%N] += dp[i][k];
-                }
+        // update dp[i+1][k]
+        if (s[n_digits-i-1] != '?') {
+            int k = s[n_digits-i-1] - '0';
+            for (int j=0; j<13; j++) {
+                dp[i+1][(digit*k+j)%13] += dp[i][j];
             }
         }
 
         else {
-            for (int k=0; k<13; k++) {
-                dp[i+1][(k*10+c)%N] += dp[i][k];
+            for (int k=0; k<10; k++) {
+                for (int j=0; j<13; j++) {
+                    dp[i+1][(digit*k+j)%13] += dp[i][j];
+                }
             }
         }
 
-        for (int k=0; k<13; k++) {
-            dp[i+1][k] %= MOD;
-        }
+        for (int k=0; k<13; k++) dp[i+1][k] %= MOD;
+        digit *= 10;
+        digit %= 13;
     }
 
-    cout << dp[n_digits][REM] << endl;
+    cout << dp[n_digits][5] << endl;
+    return 0;
 }
+
