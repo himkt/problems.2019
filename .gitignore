@@ -1,3 +1,6 @@
 .*
 !.gitignore
 *.out
+
+Cargo.*
+target
